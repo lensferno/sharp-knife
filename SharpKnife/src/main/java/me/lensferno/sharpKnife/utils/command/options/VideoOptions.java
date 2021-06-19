@@ -2,24 +2,23 @@ package me.lensferno.sharpKnife.utils.command.options;
 
 import java.util.LinkedHashMap;
 
-public class VideoOptions implements Options{
+public class VideoOptions implements Options {
 
-    private final LinkedHashMap<String, String> videoOptions = new LinkedHashMap<>();
+    public void setVideoBitrate(String bitrate) {
+        options.put("-b:v", bitrate);
+    }
 
-    @Override
-    public String getCommandString() {
+    public void setVideoCodec(String codec) {
+        options.put("-c:v", codec);
+    }
 
-        StringBuffer commandString = new StringBuffer();
-        String[] flags = videoOptions.keySet().toArray(new String[0]);
+    // this a lossy way (audio and video)
+    public void setVideoFps(String fps) {
+        options.put("-qscale", "0");
+        options.put("-r", fps);
+    }
 
-        for (String flag : flags) {
-            if (videoOptions.get(flag).equals("")) {
-                commandString.append(flag).append(" ");
-            } else {
-                commandString.append(flag).append(" ").append(videoOptions.get(flag));
-            }
-        }
-
-        return commandString.toString();
+    public void disableVideo(boolean isDisableVideo) {
+        options.put("-vn", "");
     }
 }

@@ -4,22 +4,23 @@ import java.util.LinkedHashMap;
 
 public class AudioOptions implements Options{
 
-    private final LinkedHashMap<String, String> audioOptions = new LinkedHashMap<>();
+    public void setAudioBitrate(String bitrate) {
+        options.put("-b:a", bitrate);
+    }
 
-    @Override
-    public String getCommandString() {
+    public void setAudioCodec(String codec) {
+        options.put("-c:a", codec);
+    }
 
-        StringBuffer commandString = new StringBuffer();
-        String[] flags = audioOptions.keySet().toArray(new String[0]);
+    public void setAudioVolume(String volume) {
+        options.put("-volume", volume);
+    }
 
-        for (String flag : flags) {
-            if (audioOptions.get(flag).equals("")) {
-                commandString.append(flag).append(" ");
-            } else {
-                commandString.append(flag).append(" ").append(audioOptions.get(flag));
-            }
-        }
+    public void setAudioChannels(String channels) {
+        options.put("-ac", channels);
+    }
 
-        return commandString.toString();
+    public void disableAudio(boolean isDisableAudio) {
+        options.put("-an", "");
     }
 }
